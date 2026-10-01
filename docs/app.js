@@ -258,8 +258,11 @@
 
   function mpCard(mp, opts) {
     var party = partyOf(mp.party);
-    var chips = ['<span class="chip party" data-party="' + party.key + '">' +
-      esc(party.short || mp.party) + "</span>"];
+    // Nominated MPs are non-partisan and carry no party on their profile.
+    var chips = mp.party
+      ? ['<span class="chip party" data-party="' + party.key + '">' +
+         esc(party.short || mp.party) + "</span>"]
+      : ['<span class="chip">Non-partisan</span>'];
     if (opts && opts.showConstituency) chips.push('<span class="chip">' + esc(mp.constituency) + "</span>");
     if (mp.termsServed) {
       chips.push('<span class="chip">' + mp.termsServed + " term" +
@@ -339,7 +342,8 @@
   function openUnelected() {
     var groups = state.mps.unelected || {};
     var body = Object.keys(groups).filter(function (k) { return groups[k].length; }).map(function (k) {
-      return '<div class="mp-section"><h4>' + esc(k) + "s (" + groups[k].length + ")</h4></div>" +
+      var heading = k.replace("Member of Parliament", "Members of Parliament");
+      return '<div class="mp-section"><h4>' + esc(heading) + " (" + groups[k].length + ")</h4></div>" +
         groups[k].map(function (m) { return mpCard(m, { showConstituency: false }); }).join("");
     }).join("");
 
