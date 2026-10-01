@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Singapore Electoral Boundaries &amp; Your MPs</title>
+<meta name="description" content="Interactive map of Singapore's 2025 electoral division boundaries. Click any constituency to see the Members of Parliament who serve it, with their roles, contact details and Meet-the-People Session times.">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:title" content="Singapore Electoral Boundaries &amp; Your MPs">
+<meta property="og:description" content="Click any constituency to see its Members of Parliament, their office-holding roles and contact details.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>">
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">🗳️</span>
+    <div>
+      <h1>Singapore Electoral Boundaries</h1>
+      <p>GE2025 divisions &middot; tap a constituency to meet its MPs</p>
+    </div>
+  </div>
+
+  <div class="topbar-actions">
+    <div class="search" role="search">
+      <input id="search" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Search a division or an MP…" aria-label="Search for an electoral division or a Member of Parliament"
+             aria-expanded="false" aria-controls="suggestions" role="combobox">
+      <ul id="suggestions" class="suggestions" role="listbox" hidden></ul>
+    </div>
+    <button id="locate" class="btn" type="button" title="Find the division you are standing in">
+      <span aria-hidden="true">📍</span> My division
+    </button>
+    <button id="show-unelected" class="btn" type="button" title="Nominated and Non-Constituency MPs sit in Parliament without a division">
+      NMPs &amp; NCMPs
+    </button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <h2>33 divisions</h2>
+      <div class="legend">
+        <span class="legend-item"><i class="swatch" data-party="pap"></i>PAP</span>
+        <span class="legend-item"><i class="swatch" data-party="wp"></i>WP</span>
+      </div>
+    </div>
+    <ul class="division-list" id="division-list"></ul>
+    <p class="sidebar-note">
+      96 elected MPs across 15 GRCs and 18 SMCs, plus <button class="linkish" id="sidebar-unelected" type="button">11 NMPs &amp; NCMPs</button>.
+    </p>
+  </aside>
+
+  <div class="map-wrap">
+    <div id="map" role="application" aria-label="Map of Singapore electoral divisions"></div>
+    <div class="map-hint" id="map-hint">Click a shaded area to see its Members of Parliament</div>
+  </div>
+</main>
+
+<!-- Division / MP modal -->
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <header class="modal-head">
+      <div>
+        <p class="modal-eyebrow" id="modal-eyebrow"></p>
+        <h2 id="modal-title"></h2>
+        <p class="modal-sub" id="modal-sub"></p>
+      </div>
+      <button class="modal-close" id="modal-close" type="button" aria-label="Close">&times;</button>
+    </header>
+    <div class="modal-body" id="modal-body"></div>
+    <footer class="modal-foot">
+      <span id="modal-foot-note"></span>
+    </footer>
+  </div>
+</div>
+
+<footer class="sitefoot">
+  <p>
+    Boundaries: <a href="https://data.gov.sg/datasets?formats=GEOJSON&amp;sort=relevancy&amp;query=electoral+boundary&amp;resultId=d_7ddf956dfc1c59080bf95bba1c58a5d2" target="_blank" rel="noopener">Electoral Boundary 2025, Elections Department via data.gov.sg</a>
+    &middot; MPs: <a href="https://www.parliament.gov.sg/mps/list-of-current-mps" target="_blank" rel="noopener">Parliament of Singapore</a>
+    &middot; Contacts: <a href="https://www.sgdi.gov.sg/organs-of-state/parl" target="_blank" rel="noopener">Singapore Government Directory</a>.
+  </p>
+  <p class="disclaimer">Unofficial project for public information. Data snapshot taken <span id="generated">—</span>; always confirm details against the official sources above.</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="app.js"></script>
+</body>
+</html>

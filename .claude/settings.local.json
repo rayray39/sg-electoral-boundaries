@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sS -m 60 \"https://api-open.data.gov.sg/v1/public/api/datasets/d_7ddf956dfc1c59080bf95bba1c58a5d2/metadata\")",
+      "WebFetch(domain:www.parliament.gov.sg)",
+      "Read(//tmp/**)",
+      "Bash(curl -sS -m 90 -A \"Mozilla/5.0\" \"https://www.parliament.gov.sg/mps/list-of-current-mps\" -o mps.html)",
+      "Bash(curl -sS -m 90 -A \"Mozilla/5.0\" \"https://www.sgdi.gov.sg/organs-of-state/parl\" -o sgdi.html)",
+      "Bash(python3 -)",
+      "Bash(python3 scripts/scrape_mps.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -m playwright install chromium)"
+    ]
+  }
+}
